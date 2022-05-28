@@ -36,6 +36,9 @@ public class ProductDb {
                 .findFirst()
                 .get();
     }
+    public boolean productDbContains(Product product) {
+        return products.contains(product);
+    }
 
     public Set<Product> getProducts() {
         return products;

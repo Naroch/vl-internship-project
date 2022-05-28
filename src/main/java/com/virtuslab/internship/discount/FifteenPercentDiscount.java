@@ -22,14 +22,18 @@ public class FifteenPercentDiscount {
     }
 
     private boolean shouldApply(Receipt receipt) {
-        int i = 0;
-        var listToCheck = receipt.entries();
-        ListIterator<ReceiptEntry> iterator = listToCheck.listIterator();
-        while(iterator.hasNext()) {
-            var temp = iterator.next();
-            if(temp.product().type().equals(Product.Type.GRAINS))
-                i = i + temp.quantity();
-        }
-        return i >= 3;
+//        int i = 0;
+//        var listToCheck = receipt.entries();
+//        ListIterator<ReceiptEntry> iterator = listToCheck.listIterator();
+//        while(iterator.hasNext()) {
+//            var temp = iterator.next();
+//            if(temp.product().type().equals(Product.Type.GRAINS))
+//                i = i + temp.quantity();
+//        }
+//        return i >= 3;
+        return receipt.entries().stream()
+                .filter(a -> a.product().type().equals(Product.Type.GRAINS))
+                .map(ReceiptEntry::quantity)
+                .reduce(0,Integer::sum) >= 3;
     }
 }
